@@ -9,11 +9,11 @@ import Image from "next/image";
 const Sidebar = () => {
   const pathName = usePathname();
   return (
-    <section className="flex flex-col sticky h-full w-fit left-0 top-0 justify-between bg-dark-1 p-6 pt-28 text-white max-sm:hidden lg:w-[264px]">
+    <section className="flex flex-col sticky h-screen w-fit left-0 top-0 justify-between bg-dark-1 p-6 pt-28 text-white max-sm:hidden lg:w-[264px]">
       <div className="flex flex-1 flex-col gap-6">
         {sideBarLinks.map((link) => {
           const isActive =
-            pathName === link.path; /*|| pathName.startsWith(link.path)*/
+            pathName === link.path || pathName.startsWith(`${link.path}/`);
           return (
             <Link
               href={link.path}
