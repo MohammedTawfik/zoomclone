@@ -36,6 +36,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ## Shadcn Components Used
 
 - Button
+- Dialog
 - Sheet (sliding side bar for mobile devices)
   - SheetClose: to close the sidebar menu when click on the item
 
