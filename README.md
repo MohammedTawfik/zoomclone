@@ -18,8 +18,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
@@ -40,3 +38,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 - Button
 - Sheet (sliding side bar for mobile devices)
   - SheetClose: to close the sidebar menu when click on the item
+
+# User Management
+
+- Clerk library is used to handle user management [Docs](https://clerk.com/docs/quickstarts/overview)
+  - `npm install @clerk/nextjs`
