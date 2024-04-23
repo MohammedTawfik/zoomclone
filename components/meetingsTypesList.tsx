@@ -3,15 +3,64 @@ import React, { useState } from "react";
 import HomeCard from "./HomeCard";
 import { useRouter } from "next/navigation";
 import MeetingModal from "./MeetingModal";
+import { useUser } from "@clerk/nextjs";
+import { Call, useStreamVideoClient } from "@stream-io/video-react-sdk";
+import { useToast } from "@/components/ui/use-toast";
 
 const MeetingsTypesList = () => {
+  const { toast } = useToast();
   const router = useRouter();
   const [meetingState, setMeetingState] = useState<
     "isScheduleMeeting" | "isJoiningMeeting" | "isInstantMeeting" | undefined
   >(undefined);
+  const [meetingProps, setMeetingProps] = useState({
+    StartTime: new Date(),
+    Description: "",
+    Link: "",
+  });
+  const [callDetails, setCallDetails] = useState<Call>();
+  const user = useUser();
+  const streamClient = useStreamVideoClient();
 
-  const createMeeting = () => {
-    setMeetingState("isInstantMeeting");
+  const createMeeting = async () => {
+    if (!streamClient || !user) {
+      return;
+    }
+    try {
+      if (!meetingProps.StartTime) {
+        toast({ title: "Please select a start time" });
+        return;
+      }
+      const callId = crypto.randomUUID();
+      const call = streamClient.call("default", callId);
+      if (!call) {
+        throw new Error("Failed to create call");
+      }
+      const startAt =
+        meetingProps.StartTime.toISOString() ||
+        new Date(Date.now()).toISOString();
+      const description = meetingProps.Description || "Instant Meeting";
+
+      await call.getOrCreate({
+        data: {
+          starts_at: startAt,
+          custom: { description },
+        },
+      });
+      setCallDetails(call);
+      if (!meetingProps.Description) {
+        router.push(`/meeting/${call.id}`);
+      }
+      toast({
+        title: "Meeting Created",
+        description: "Your Meeting created with id : " + call.id,
+      });
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: "Failed to create a meeting",
+      });
+    }
   };
   return (
     <section className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">

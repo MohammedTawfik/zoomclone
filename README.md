@@ -37,6 +37,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 - Button
 - Dialog
+- Toast
 - Sheet (sliding side bar for mobile devices)
   - SheetClose: to close the sidebar menu when click on the item
 
@@ -44,3 +45,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 - Clerk library is used to handle user management [Docs](https://clerk.com/docs/quickstarts/overview)
   - `npm install @clerk/nextjs`
+
+# Audio and Video Streaming
+
+- Stream library is used to handle Audio and Video streaming [Docs](https://getstream.io/video/docs/react/)
